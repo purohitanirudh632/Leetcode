@@ -1,7 +1,3 @@
- bool cmp(pair<int,int>& a , pair<int,int>& b)
-    {
-       return(a.second < b.second); 
-    }
 class Solution {
 public:
     
@@ -9,28 +5,26 @@ public:
     {
        int count =0;
        
-        vector<int> vec;
+      priority_queue<int> q;
         
         for(auto & y:mp)
         {
-                vec.push_back(y.second);
+                q.push(y.second);
         }
         
-        sort(vec.begin(), vec.end(),greater<int>());
+       // sort(vec.begin(), vec.end(),greater<int>());
        
        int tempsum =0;
        
-       for(auto x: vec)
+       while(!q.empty())
        {
-           cout<<x<<endl;
-           
-           tempsum+= x;
+           tempsum+=q.top();
            count++;
-           
-           if(tempsum >=n/2)
+           q.pop();
+           if(tempsum >= n/2)
                break;
        }
-       
+           
        return count;
     }
     
