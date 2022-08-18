@@ -1,30 +1,18 @@
 class Solution {
 public:
-    
-    bool isans(vector<int> subs,int maxor)
+    void getsubs(vector<int> nums, int index, int oor , int maxor,int& count)
     {
-        int oro =0;
-         for(auto x: subs)
+        if(index >= nums.size())
         {
-            oro= oro | x;
+        
+        if(oor == maxor)
+            count++;
+        return;
         }
         
-        if(oro == maxor)
-            return true;
-        else
-            return false;
-    }
-    void getsubs(vector<int> nums, int index, vector<int> subs, int maxor,int& count)
-    {
+        getsubs(nums,index+1,oor,maxor,count);
+        getsubs(nums,index+1,oor|nums[index],maxor,count);
         
-        for(int i =index;i<nums.size();i++)
-        {
-            subs.push_back(nums[i]);
-            if(isans(subs,maxor)==true)
-                count++;
-            getsubs(nums,i+1,subs,maxor,count);
-            subs.pop_back();
-        }
     }
     int countMaxOrSubsets(vector<int>& nums) {
             
@@ -34,10 +22,11 @@ public:
         {
             maxor = maxor | x;
         }
-    int count=0;
-     vector<int> subs;
         
-        getsubs(nums,0,subs,maxor,count);
+           int count=0;
+     // vector<int> subs;
+        
+        getsubs(nums,0,0,maxor,count);
         
         return count;
     }
