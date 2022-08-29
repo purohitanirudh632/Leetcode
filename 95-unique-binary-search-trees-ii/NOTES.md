@@ -1,0 +1,1 @@
+recursive soln by making the root to every node from 1 to n and creating the left subtrees and right subtrees
