@@ -1,35 +1,66 @@
 class Solution {
 public:
     vector<int> findClosestElements(vector<int>& arr, int k, int x) {
+        int min = INT_MAX;
+        int index =-1;
         
-        map<int,vector<int> > mp;
-        
-        for(auto z:arr)
+        for(int i=0;i<arr.size();i++)
         {
-            int index = abs(x-z);
-            mp[index].push_back(z);
-        }
-        
-        vector<int> vec;
-        int flag =0;
-        for(auto s:mp)
-         {
-            for(auto i:s.second)
+            if((abs(x-arr[i])) < min)
             {
-           if(vec.size()==k)
-           { flag=1;
-               break;
-           }
-                vec.push_back(i);
-
+                index = i;
+                min=abs(x-arr[i]);
             }
-            
-          if(flag==1)
-              break;
-            
         }
         
-        sort(vec.begin(),vec.end());
-       return vec; 
+        int start = index-1;
+        int end = index+1;
+        
+        k= k-1;
+        while(k)
+        {
+              if(start>=0 && end<arr.size())
+              {
+            if(x-arr[start] < arr[end]-x || x-arr[start] == arr[end]-x)
+            {
+                start--;
+                 // cout<<start<<" ";
+              
+            }
+            else 
+            {
+                end++;
+                  // cout<<end<<endl; 
+            }
+                
+              }  
+            else{
+                
+                 if(end>=arr.size())
+                {
+                    start--;
+                }
+                else if(start<0)
+                {
+                    end++;
+                }
+            }
+        
+            k--;
+        }
+
+        // cout<<start;
+        // cout<<end;
+        
+       vector<int> vec;
+        
+        for(int j=start+1; j<end;j++)
+        {
+            vec.push_back(arr[j]);
+        }
+        
+        return vec;
+        
     }
+
 };
